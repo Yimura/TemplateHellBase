@@ -4,7 +4,10 @@ namespace NewBase
 {
     DWORD Main(void*)
     {
-
+        while (g_Running)
+        {
+            std::this_thread::sleep_for(100ms);
+        }
 
         CloseHandle(g_MainThread);
         FreeLibraryAndExitThread(g_DllInstance, EXIT_SUCCESS);
@@ -13,10 +16,7 @@ namespace NewBase
     }
 }
 
-BOOL WINAPI DllMain(
-    HINSTANCE dllInstance,  // handle to DLL module
-    DWORD reason,     // reason for calling function
-    void*)  // reserved
+BOOL WINAPI DllMain(HINSTANCE dllInstance, DWORD reason, void*)
 {
     using namespace NewBase;
 
