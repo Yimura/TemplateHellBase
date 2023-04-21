@@ -61,7 +61,21 @@
         "xstddef": "cpp",
         "xstring": "cpp",
         "xtr1common": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "array": "cpp",
+        "condition_variable": "cpp",
+        "deque": "cpp",
+        "fstream": "cpp",
+        "functional": "cpp",
+        "iostream": "cpp",
+        "list": "cpp",
+        "queue": "cpp",
+        "ranges": "cpp",
+        "source_location": "cpp",
+        "span": "cpp",
+        "unordered_map": "cpp",
+        "xhash": "cpp",
+        "filesystem": "cpp"
     },
     "C_Cpp.default.configurationProvider": "maxmitti.cmake-tools-fork"
 }
