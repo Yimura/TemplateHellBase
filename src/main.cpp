@@ -1,13 +1,20 @@
 #include "common.hpp"
+#include "hooking/DetourHook.hpp"
 
 namespace NewBase
 {
     DWORD Main(void*)
     {
-        while (g_Running)
+        LogHelper::Init("henlo", "./cout.log");
+
+        LOG(INFO) << "Test log!";
+
+        while (g_Running && !GetAsyncKeyState(VK_DELETE))
         {
             std::this_thread::sleep_for(100ms);
         }
+
+        LogHelper::Destroy();
 
         CloseHandle(g_MainThread);
         FreeLibraryAndExitThread(g_DllInstance, EXIT_SUCCESS);
