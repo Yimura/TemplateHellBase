@@ -1,4 +1,5 @@
 #pragma once
+#include "util/StrToHex.hpp"
 #include <string_view>
 
 namespace NewBase
@@ -21,10 +22,25 @@ namespace NewBase
             }
         }
 
+        /**
+         * @brief Signature string
+         * 
+         * @return constexpr const decltype(m_Signature)& 
+         */
         inline constexpr const decltype(m_Signature)& Get() const
         { return m_Signature; }
+        /**
+         * @brief Returns the Length of the original signature string
+         * 
+         * @return constexpr std::size_t 
+         */
         constexpr std::size_t Length() const
         { return N; }
+        /**
+         * @brief Returns the actual length in bytes for the signature
+         * 
+         * @return constexpr std::size_t 
+         */
         constexpr std::size_t ByteLength() const
         { return m_SignatureByteLength; }
     };
@@ -45,17 +61,6 @@ namespace NewBase
         { return m_Signature; }
 
         friend std::ostream& operator<< <>(std::ostream& os, const Pattern<S>& signature);
-    };
-
-    inline constexpr auto StrToHex(const char& ch) noexcept -> std::uint8_t
-    {
-        if (ch >= '0' && ch <= '9')
-                return ch - '0';
-
-        if (ch >= 'A' && ch <= 'F')
-            return ch - 'A' + 10;
-
-        return ch - 'a' + 10;
     };
 
 	template<Signature S>
