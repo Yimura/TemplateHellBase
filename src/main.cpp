@@ -1,11 +1,14 @@
 #include "common.hpp"
-#include "hooking/DetourHook.hpp"
+#include "memory/Pattern.hpp"
 
 namespace NewBase
 {
     DWORD Main(void*)
     {
         LogHelper::Init("henlo", "./cout.log");
+
+        constexpr auto pat = Pattern("Henlo", "48 ?? FF ?? 55");
+        pat.Signature();
 
         LOG(INFO) << "Test log!";
 
