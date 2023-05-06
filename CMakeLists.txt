@@ -9,7 +9,7 @@ include(cmake/minhook.cmake)
 # source
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 file(GLOB_RECURSE SRC_FILES
-    "${SRC_DIR}/**.hpp"    
+    "${SRC_DIR}/**.hpp"
     "${SRC_DIR}/**.cpp"    
 )
 
