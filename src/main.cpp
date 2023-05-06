@@ -7,8 +7,8 @@ namespace NewBase
     {
         LogHelper::Init("henlo", "./cout.log");
 
-        constexpr auto pat = Pattern("Henlo", "48 ?? FF ?? 55");
-        pat.Signature();
+        constexpr auto pat = Pattern<"48 ?? FF ?? 55">("Henlo");
+        LOG(VERBOSE) << pat;
 
         LOG(INFO) << "Test log!";
 
