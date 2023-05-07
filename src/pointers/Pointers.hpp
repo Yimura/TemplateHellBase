@@ -14,5 +14,5 @@ namespace NewBase
     {
         bool Init();
 
-    } static Pointers{};
+    } inline static Pointers{};
 }
