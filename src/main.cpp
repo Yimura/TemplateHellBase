@@ -1,5 +1,5 @@
 #include "common.hpp"
-#include "memory/Pattern.hpp"
+#include "pointers/Pointers.hpp"
 
 namespace NewBase
 {
@@ -7,10 +7,7 @@ namespace NewBase
     {
         LogHelper::Init("henlo", "./cout.log");
 
-        constexpr auto pat = Pattern<"48 ?? FF ?? 55">("Henlo");
-        LOG(VERBOSE) << pat;
-
-        LOG(INFO) << "Test log!";
+        Pointers.Init();
 
         while (g_Running && !GetAsyncKeyState(VK_DELETE))
         {
