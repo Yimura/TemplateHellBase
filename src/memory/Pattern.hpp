@@ -45,8 +45,19 @@ namespace NewBase
         { return m_SignatureByteLength; }
     };
 
+    class IPattern
+    {
+    public:
+        constexpr IPattern() = default;
+        virtual ~IPattern() = default;
+
+        virtual const std::string_view Name() const = 0;
+        virtual constexpr std::span<const std::optional<std::uint8_t>> Signature() const = 0;
+
+    };
+
     template<Signature S>
-    class Pattern final
+    class Pattern final : public IPattern
     {
     private:
         const std::string_view m_Name;
@@ -55,9 +66,9 @@ namespace NewBase
     public:
         constexpr Pattern(const std::string_view name);
 
-        inline const std::string_view Name() const
+        inline virtual const std::string_view Name() const override
         { return m_Name; }
-        inline constexpr const std::array<std::optional<std::uint8_t>, S.ByteLength()>& Signature() const
+        inline virtual constexpr std::span<const std::optional<std::uint8_t>> Signature() const override
         { return m_Signature; }
 
         friend std::ostream& operator<< <>(std::ostream& os, const Pattern<S>& signature);
@@ -65,6 +76,7 @@ namespace NewBase
 
 	template<Signature S>
 	inline constexpr Pattern<S>::Pattern(const std::string_view name) :
+        IPattern(),
         m_Name(name)
 	{
         for (size_t i = 0, pos = 0; i < S.Length(); i++)
