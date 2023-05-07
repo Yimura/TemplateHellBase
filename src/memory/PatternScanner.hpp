@@ -13,22 +13,22 @@ namespace NewBase
     {
     private:
         const Module* m_Module;
-        std::vector<std::pair<IPattern*, PatternFunc>> m_Patterns;
+        std::vector<std::pair<const IPattern*, PatternFunc>> m_Patterns;
 
     public:
         PatternScanner(const Module* module);
 
         template<Signature S>
-        void Add(Pattern<S> pattern, const PatternFunc& func);
+        void Add(const Pattern<S>& pattern, const PatternFunc& func);
         bool Scan();
 
     private:
-        bool ScanInternal(IPattern* pattern, PatternFunc func) const;
+        bool ScanInternal(const IPattern* pattern, PatternFunc func) const;
 
     };
 
     template<Signature S>
-    inline void PatternScanner::Add(Pattern<S> pattern, const PatternFunc& func)
+    inline void PatternScanner::Add(const Pattern<S>& pattern, const PatternFunc& func)
     {
         m_Patterns.push_back(std::move(std::make_pair(&pattern, func)));
     }

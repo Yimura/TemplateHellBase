@@ -38,7 +38,7 @@ namespace NewBase
 		return scanSuccess;
 	}
 
-	bool PatternScanner::ScanInternal(IPattern* pattern, PatternFunc func) const
+	bool PatternScanner::ScanInternal(const IPattern* pattern, PatternFunc func) const
 	{
 		const auto signature = pattern->Signature();
 
