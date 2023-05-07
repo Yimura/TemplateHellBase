@@ -31,7 +31,6 @@ namespace NewBase
 		template<typename T>
 		PointerCalculator Sub(T offset) const;
 
-		template<typename T>
 		PointerCalculator Rip() const;
 
 		explicit operator bool() const;
@@ -64,7 +63,7 @@ namespace NewBase
 	template<typename T>
 	inline std::enable_if_t<std::is_lvalue_reference_v<T>, T> PointerCalculator::As() const
 	{
-		return *static_cast<std::add_pointer_t<std::remove_reference_t<T>>>(m_InternalPtr);
+		return *reinterpret_cast<std::add_pointer_t<std::remove_reference_t<T>>>(m_InternalPtr);
 	}
 
 	template<typename T>
@@ -85,7 +84,6 @@ namespace NewBase
 		return {m_InternalPtr - offset};
 	}
 
-	template<typename T>
 	inline PointerCalculator PointerCalculator::Rip() const
 	{
 		return Add(As<std::int32_t&>()).Add(4);
