@@ -26,6 +26,12 @@ namespace NewBase
         
         virtual bool Enable() = 0;
         virtual bool Disable() = 0;
+
+        static void EnableAll();
+        static void DisableAll();
+
+    private:
+        inline static std::vector<BaseHook*> m_Hooks;
         
     };
     
