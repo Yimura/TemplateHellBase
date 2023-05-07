@@ -8,10 +8,13 @@
 
 #include <atomic>
 #include <chrono>
+#include <functional>
+#include <future>
 #include <memory>
 #include <thread>
 
 #include <array>
+#include <vector>
 
 #include <cstddef>
 #include <string_view>
