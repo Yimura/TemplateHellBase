@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseHook.hpp"
+#include "memory/PointerCalculator.hpp"
 
 #include <MinHook.h>
 #include <string_view>
@@ -28,7 +29,7 @@ namespace NewBase
 		Func Original() const;
 
     private:
-        static void OptimizeHook() {};
+        void OptimizeHook();
 
 	};
 
@@ -118,5 +119,16 @@ namespace NewBase
 	inline Func DetourHook<T, D>::Original() const
 	{
 		return reinterpret_cast<Func>(m_OriginalFunc);
+	}
+
+	template<typename T, typename D>
+	inline void DetourHook<T, D>::OptimizeHook()
+	{
+		auto ptr = PointerCalculator(m_TargetFunc);
+		while (ptr.As<std::uint8_t&>() == 0xE9)
+		{
+			ptr = ptr.Add(1).Rip();
+		}
+		m_TargetFunc = ptr.As<void*>();
 	}
 }
