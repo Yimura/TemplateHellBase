@@ -1,5 +1,6 @@
 #include "common.hpp"
 #include "pointers/Pointers.hpp"
+#include "hooking/Hooking.hpp"
 
 namespace NewBase
 {
@@ -8,12 +9,14 @@ namespace NewBase
         LogHelper::Init("henlo", "./cout.log");
 
         Pointers.Init();
+        Hooking::Init();
 
         while (g_Running && !GetAsyncKeyState(VK_DELETE))
         {
             std::this_thread::sleep_for(100ms);
         }
 
+        Hooking::Destroy();
         LogHelper::Destroy();
 
         CloseHandle(g_MainThread);

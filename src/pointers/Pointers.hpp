@@ -11,8 +11,9 @@ namespace NewBase
     };
 
     struct Pointers : PointerData
-    {
-        bool Init();
+	{
+		bool Init();
+	};
 
-    } inline static Pointers{};
+    inline NewBase::Pointers Pointers;
 }

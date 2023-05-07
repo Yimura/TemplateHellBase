@@ -27,6 +27,20 @@ namespace NewBase
         virtual bool Enable() = 0;
         virtual bool Disable() = 0;
 
+    public:
+        template<auto HookFunc>
+        struct HookHelper
+        {
+            inline static BaseHook* m_Hook;
+        };
+        
+        template<auto HookFunc>
+        inline static void Add(BaseHook* hook);
+        template<auto HookFunc, typename T>
+        inline static T* Get();
+
+        static std::vector<BaseHook*>& Hooks();
+
         static void EnableAll();
         static void DisableAll();
 
@@ -34,5 +48,16 @@ namespace NewBase
         inline static std::vector<BaseHook*> m_Hooks;
         
     };
-    
+
+	template<auto HookFunc>
+	inline void BaseHook::Add(BaseHook* hook)
+	{
+        HookHelper<HookFunc>::m_Hook = hook;
+	}
+
+	template<auto HookFunc, typename T>
+	inline T* BaseHook::Get()
+	{
+		return reinterpret_cast<T*>(HookHelper<HookFunc>::m_Hook);
+	}
 }

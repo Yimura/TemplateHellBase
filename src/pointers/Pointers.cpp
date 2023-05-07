@@ -13,7 +13,7 @@ namespace NewBase
 
 		auto scanner = PatternScanner(mgr.Get("GTA5.exe"_J));
 
-		constexpr auto swapchainPtrn = Pattern<"48 8B 0D ? ? ? ? 48 85 C9 0F 84 02 02 00 00">("IDXGISwapChain");
+		constexpr auto swapchainPtrn = Pattern<"48 8B 0D ? ? ? ? 48 8B 01 44 8D 43 01 33 D2 FF 50 40 8B C8">("IDXGISwapChain");
 		scanner.Add(swapchainPtrn, [this](PointerCalculator ptr) {
 			SwapChain = ptr.Add(3).Rip().As<IDXGISwapChain**>();
 		});

@@ -1,11 +1,17 @@
 #include "Hooking.hpp"
 #include "BaseHook.hpp"
+#include "pointers/Pointers.hpp"
+#include "VMTHook.hpp"
+#include "hooks/Hooks.hpp"
 
 namespace NewBase
 {
 	Hooking::Hooking()
 	{
-
+		auto swapchain = new VMTHook<SwapChain::VMTSize>("SwapChain", *Pointers.SwapChain);
+		swapchain->Hook(SwapChain::VMTPresentIdx, SwapChain::Present);
+		swapchain->Hook(SwapChain::VMTResizeBuffersIdx, SwapChain::ResizeBuffers);
+		BaseHook::Add<SwapChain::Present>(swapchain);
 	}
 
 	Hooking::~Hooking()
@@ -35,5 +41,11 @@ namespace NewBase
 	{
         BaseHook::DisableAll();
         m_MinHook.ApplyQueued();
+
+		for (auto it : BaseHook::Hooks())
+		{
+			delete it;
+		}
+		BaseHook::Hooks().clear();
 	}
 }

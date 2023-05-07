@@ -10,6 +10,11 @@ namespace NewBase
         m_Hooks.emplace_back(this);
     }
 
+	std::vector<BaseHook*>& BaseHook::Hooks()
+	{
+		return m_Hooks;
+	}
+
 	void BaseHook::EnableAll()
 	{
         for (auto hook : m_Hooks)

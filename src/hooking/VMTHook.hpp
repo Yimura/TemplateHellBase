@@ -27,7 +27,7 @@ namespace NewBase
 		virtual bool Disable() override;
 
 		template<typename T>
-		T Original(const std::uint32_t idx) const;
+		inline T Original(const std::uint32_t idx) const;
 
 		template<typename T>
 		void Hook(const std::uint32_t idx, T& detour);
