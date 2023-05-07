@@ -19,7 +19,8 @@ namespace NewBase
 		void*** m_VMTAddress;
 
 	public:
-		VMTHook(const std::string_view name, void*** vmtAddress);
+		template<typename T>
+		VMTHook(const std::string_view name, T* vmtAddress);
 		~VMTHook();
 
 		virtual bool Enable() override;
@@ -39,11 +40,12 @@ namespace NewBase
 	};
 
 	template<std::size_t N>
-	inline VMTHook<N>::VMTHook(const std::string_view name, void*** vmtAddress) :
+	template<typename T>
+	inline VMTHook<N>::VMTHook(const std::string_view name, T* vmtAddress) :
 	    BaseHook(name),
-	    m_VMTAddress(vmtAddress)
+	    m_VMTAddress(reinterpret_cast<void***>(vmtAddress))
 	{
-		m_OriginalVMT = *vmtAddress;
+		m_OriginalVMT = *m_VMTAddress;
 		std::copy_n(m_OriginalVMT, N * sizeof(void*), m_VMT.data());
 	}
 
