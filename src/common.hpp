@@ -14,10 +14,14 @@
 #include <thread>
 
 #include <array>
+#include <map>
 #include <vector>
 
 #include <cstddef>
 #include <string_view>
+
+#include <imgui.h>
+#include <MinHook.h>
 
 #include <AsyncLogger/Logger.hpp>
 using namespace al;
