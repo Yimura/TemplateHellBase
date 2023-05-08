@@ -4,6 +4,7 @@ project(NewBase VERSION 0.0.1 DESCRIPTION "A new base using new C++ features opt
 
 # libs
 include(cmake/async-logger.cmake)
+include(cmake/imgui.cmake)
 include(cmake/minhook.cmake)
 
 # source
@@ -21,8 +22,9 @@ target_precompile_headers(${PROJECT_NAME} PUBLIC "${SRC_DIR}/common.hpp")
 message(STATUS "Setting up include directories.")
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${SRC_DIR}"
+    "${imgui_SOURCE_DIR}"
     "${minhook_SOURCE_DIR}/include"    
 )
 
 message(STATUS "Setting up linked libraries")
-target_link_libraries(${PROJECT_NAME} PRIVATE AsyncLogger minhook)
+target_link_libraries(${PROJECT_NAME} PRIVATE AsyncLogger imgui minhook)
