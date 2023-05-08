@@ -23,7 +23,19 @@ namespace NewBase
 			WndProc = ptr.As<WNDPROC>();
 		});
 
-		scanner.Scan();
+		if (!scanner.Scan())
+		{
+			LOG(FATAL) << "Some patterns could not be found, unloading.";
+
+			return false;
+		}
+
+		if (Hwnd = FindWindow("grcWindow", nullptr); !Hwnd)
+		{
+			LOG(FATAL) << "Failed to grab game window, unloading.";
+
+			return false;
+		}
 
 		return true;
 	}

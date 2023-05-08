@@ -7,6 +7,7 @@ namespace NewBase
     struct PointerData
     {
         IDXGISwapChain** SwapChain;
+        HWND Hwnd;
         WNDPROC WndProc;
     };
 

@@ -1,6 +1,8 @@
 #include "common.hpp"
+#include "frontend/GUI.hpp"
 #include "pointers/Pointers.hpp"
 #include "hooking/Hooking.hpp"
+#include "renderer/Renderer.hpp"
 
 namespace NewBase
 {
@@ -8,15 +10,20 @@ namespace NewBase
     {
         LogHelper::Init("henlo", "./cout.log");
 
-        Pointers.Init();
+        if (!Pointers.Init())
+            goto unload;
+        Renderer::Init();
+        GUI::Init();
         Hooking::Init();
 
-        while (g_Running && !GetAsyncKeyState(VK_DELETE))
+        while (g_Running)
         {
             std::this_thread::sleep_for(100ms);
         }
 
+unload:
         Hooking::Destroy();
+        Renderer::Destroy();
         LogHelper::Destroy();
 
         CloseHandle(g_MainThread);

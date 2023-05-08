@@ -1,5 +1,6 @@
 #include "Hooking.hpp"
 #include "BaseHook.hpp"
+#include "DetourHook.hpp"
 #include "pointers/Pointers.hpp"
 #include "VMTHook.hpp"
 #include "hooks/Hooks.hpp"
@@ -8,6 +9,8 @@ namespace NewBase
 {
 	Hooking::Hooking()
 	{
+		BaseHook::Add<Window::WndProc>(new DetourHook("WndProc", Pointers.WndProc, Window::WndProc));
+
 		auto swapchain = new VMTHook<SwapChain::VMTSize>("SwapChain", *Pointers.SwapChain);
 		swapchain->Hook(SwapChain::VMTPresentIdx, SwapChain::Present);
 		swapchain->Hook(SwapChain::VMTResizeBuffersIdx, SwapChain::ResizeBuffers);
