@@ -1,9 +1,10 @@
 #include "Hooking.hpp"
+
 #include "BaseHook.hpp"
 #include "DetourHook.hpp"
-#include "pointers/Pointers.hpp"
 #include "VMTHook.hpp"
 #include "hooks/Hooks.hpp"
+#include "pointers/Pointers.hpp"
 
 namespace NewBase
 {
@@ -19,7 +20,7 @@ namespace NewBase
 
 	Hooking::~Hooking()
 	{
-        DestroyImpl();
+		DestroyImpl();
 	}
 
 	bool Hooking::Init()
@@ -29,21 +30,21 @@ namespace NewBase
 
 	void Hooking::Destroy()
 	{
-        GetInstance().DestroyImpl();
+		GetInstance().DestroyImpl();
 	}
 
 	bool Hooking::InitImpl()
 	{
-        BaseHook::EnableAll();
-        m_MinHook.ApplyQueued();
+		BaseHook::EnableAll();
+		m_MinHook.ApplyQueued();
 
 		return true;
 	}
 
 	void Hooking::DestroyImpl()
 	{
-        BaseHook::DisableAll();
-        m_MinHook.ApplyQueued();
+		BaseHook::DisableAll();
+		m_MinHook.ApplyQueued();
 
 		for (auto it : BaseHook::Hooks())
 		{

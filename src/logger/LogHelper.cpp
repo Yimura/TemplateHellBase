@@ -53,7 +53,7 @@ namespace NewBase
 
 				// terminal like behaviour enable full color support
 				consoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
-                consoleMode &= ~(ENABLE_QUICK_EDIT_MODE);
+				consoleMode &= ~(ENABLE_QUICK_EDIT_MODE);
 
 				SetConsoleMode(m_ConsoleHandle, consoleMode);
 			}

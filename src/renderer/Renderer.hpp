@@ -1,5 +1,6 @@
 #pragma once
 #include "util/Joaat.hpp"
+
 #include <d3d11.h>
 #include <functional>
 #include <map>
@@ -33,22 +34,22 @@ namespace NewBase
 		}
 
 		/**
-         * @brief Add a callback function to draw using ImGui
-         * 
-         * @param callback Callback function
-         * @param priority Low values will be drawn before higher values.
-         * @return true Successfully added callback.
-         * @return false Duplicate render priority was given.
-         */
+		 * @brief Add a callback function to draw using ImGui
+		 * 
+		 * @param callback Callback function
+		 * @param priority Low values will be drawn before higher values.
+		 * @return true Successfully added callback.
+		 * @return false Duplicate render priority was given.
+		 */
 		static bool AddDXCallback(DXCallback&& callback, std::uint32_t priority)
 		{
 			return GetInstance().AddDXCallbackImpl(std::move(callback), priority);
 		}
 		/**
-         * @brief Add a callback function to handle Windows WindowProcedure
-         * 
-         * @param callback Callback function
-         */
+		 * @brief Add a callback function to handle Windows WindowProcedure
+		 * 
+		 * @param callback Callback function
+		 */
 		static void AddWindowProcedureCallback(WindowProcedureCallback&& callback)
 		{
 			GetInstance().AddWindowProcedureCallbackImpl(std::move(callback));

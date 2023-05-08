@@ -3,22 +3,22 @@
 
 namespace NewBase
 {
-    class MinHook
-    {
-    public:
-        MinHook()
-        {
-            MH_Initialize();
-        }
+	class MinHook
+	{
+	public:
+		MinHook()
+		{
+			MH_Initialize();
+		}
 
-        ~MinHook()
-        {
-            MH_Uninitialize();
-        }
+		~MinHook()
+		{
+			MH_Uninitialize();
+		}
 
-        MH_STATUS ApplyQueued()
-        {
-            return MH_ApplyQueued();
-        }
-    };
+		MH_STATUS ApplyQueued()
+		{
+			return MH_ApplyQueued();
+		}
+	};
 }

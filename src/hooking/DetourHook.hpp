@@ -28,21 +28,20 @@ namespace NewBase
 		template<typename Func>
 		Func Original() const;
 
-    private:
-        void OptimizeHook();
-
+	private:
+		void OptimizeHook();
 	};
 
 	template<typename T, typename D>
 	inline DetourHook<T, D>::DetourHook(const std::string_view name, T* target, D* detour) :
-        BaseHook(name),
-        m_TargetFunc(target),
-        m_DetourFunc(detour),
-        m_OriginalFunc(nullptr)
+	    BaseHook(name),
+	    m_TargetFunc(target),
+	    m_DetourFunc(detour),
+	    m_OriginalFunc(nullptr)
 	{
-        OptimizeHook();
+		OptimizeHook();
 
-        if (const auto result = MH_CreateHook(m_TargetFunc, m_DetourFunc, &m_OriginalFunc); result != MH_OK)
+		if (const auto result = MH_CreateHook(m_TargetFunc, m_DetourFunc, &m_OriginalFunc); result != MH_OK)
 		{
 			throw std::runtime_error("Failed to create hook!");
 		}
@@ -53,7 +52,7 @@ namespace NewBase
 	{
 		DisableNow();
 	}
-	
+
 	template<typename T, typename D>
 	inline bool DetourHook<T, D>::Enable()
 	{
@@ -68,7 +67,7 @@ namespace NewBase
 		}
 		return true;
 	}
-	
+
 	template<typename T, typename D>
 	inline bool DetourHook<T, D>::Disable()
 	{
@@ -83,13 +82,13 @@ namespace NewBase
 		}
 		return true;
 	}
-	
+
 	template<typename T, typename D>
 	inline bool DetourHook<T, D>::EnableNow()
 	{
 		if (m_Enabled)
 			return false;
-		
+
 		if (const auto result = MH_EnableHook(m_TargetFunc); result != MH_OK)
 		{
 			throw std::runtime_error("Failed to enable hook right now.");
@@ -104,7 +103,7 @@ namespace NewBase
 	{
 		if (!m_Enabled)
 			return false;
-		
+
 		if (const auto result = MH_DisableHook(m_TargetFunc); result != MH_OK)
 		{
 			throw std::runtime_error("Failed to disable hook right now.");

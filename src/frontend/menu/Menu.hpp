@@ -3,5 +3,5 @@
 
 namespace NewBase::Menu
 {
-    extern void Main();
+	extern void Main();
 }

@@ -39,6 +39,5 @@ namespace NewBase
 
 	private:
 		bool m_IsOpen;
-
 	};
 }

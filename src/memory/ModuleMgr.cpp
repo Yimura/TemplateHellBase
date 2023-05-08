@@ -1,4 +1,5 @@
 #include "ModuleMgr.hpp"
+
 #include "util/Joaat.hpp"
 
 namespace NewBase

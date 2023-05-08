@@ -4,17 +4,17 @@
 
 namespace NewBase
 {
-    struct PointerData
-    {
-        IDXGISwapChain** SwapChain;
-        HWND Hwnd;
-        WNDPROC WndProc;
-    };
+	struct PointerData
+	{
+		IDXGISwapChain** SwapChain;
+		HWND Hwnd;
+		WNDPROC WndProc;
+	};
 
-    struct Pointers : PointerData
+	struct Pointers : PointerData
 	{
 		bool Init();
 	};
 
-    inline NewBase::Pointers Pointers;
+	inline NewBase::Pointers Pointers;
 }

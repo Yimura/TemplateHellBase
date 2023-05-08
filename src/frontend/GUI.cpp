@@ -6,7 +6,7 @@
 namespace NewBase
 {
 	GUI::GUI() :
-	    m_IsOpen(false)
+		m_IsOpen(false)
 	{
 		Renderer::AddDXCallback(Menu::Main, -1);
 		Renderer::AddWindowProcedureCallback([this](HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {

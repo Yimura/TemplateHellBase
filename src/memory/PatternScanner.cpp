@@ -46,9 +46,9 @@ namespace NewBase
 		{
 			if (signature.size() + i > m_Module->End())
 				break;
-			
+
 			const auto instruction = reinterpret_cast<std::uint8_t*>(i);
-			bool found = true;
+			bool found             = true;
 			for (std::size_t instructionIdx = 0; instructionIdx < signature.size(); ++instructionIdx)
 			{
 				if (signature[instructionIdx] && signature[instructionIdx].value() != instruction[instructionIdx])
