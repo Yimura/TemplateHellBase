@@ -14,7 +14,7 @@ namespace NewBase
 		std::string_view m_Name;
 		bool m_Enabled;
 
-		std::array<void*, N> m_VMT = {nullptr};
+		std::array<void*, N> m_NewVMT = {nullptr};
 		void** m_OriginalVMT;
 		void*** m_VMTAddress;
 
@@ -46,7 +46,7 @@ namespace NewBase
 	    m_VMTAddress(reinterpret_cast<void***>(vmtAddress))
 	{
 		m_OriginalVMT = *m_VMTAddress;
-		std::copy_n(m_OriginalVMT, N * sizeof(void*), m_VMT.data());
+		std::copy_n(m_OriginalVMT, N, m_NewVMT.begin());
 	}
 
 	template<std::size_t N>
@@ -62,7 +62,7 @@ namespace NewBase
 			return false;
 
 		m_Enabled     = true;
-		*m_VMTAddress = m_VMT.data();
+		*m_VMTAddress = m_NewVMT.data();
 		return true;
 	}
 
@@ -82,15 +82,15 @@ namespace NewBase
 	inline void VMTHook<N>::Hook(const std::uint32_t idx, T& detour)
 	{
 		if (std::is_pointer<T>())
-			m_VMT[idx] = reinterpret_cast<void*>(detour);
+			m_NewVMT[idx] = reinterpret_cast<void*>(detour);
 		else
-			m_VMT[idx] = reinterpret_cast<void*>(&detour);
+			m_NewVMT[idx] = reinterpret_cast<void*>(&detour);
 	}
 
 	template<std::size_t N>
 	inline void VMTHook<N>::UnHook(const std::uint32_t idx)
 	{
-		m_VMT[idx] = m_OriginalVMT[idx];
+		m_NewVMT[idx] = m_OriginalVMT[idx];
 	}
 
 	template<std::size_t N>
