@@ -1,29 +1,23 @@
 #pragma once
 
+#include <AsyncLogger/Logger.hpp>
+#include <MinHook.h>
 #include <Windows.h>
-
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-
+#include <array>
 #include <atomic>
 #include <chrono>
+#include <cstddef>
+#include <filesystem>
+#include <fstream>
 #include <functional>
 #include <future>
-#include <memory>
-#include <thread>
-
-#include <array>
-#include <map>
-#include <vector>
-
-#include <cstddef>
-#include <string_view>
-
 #include <imgui.h>
-#include <MinHook.h>
-
-#include <AsyncLogger/Logger.hpp>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <string_view>
+#include <thread>
+#include <vector>
 using namespace al;
 
 #include "logger/LogHelper.hpp"
@@ -31,10 +25,10 @@ using namespace al;
 
 namespace NewBase
 {
-    using namespace std::chrono_literals;
+	using namespace std::chrono_literals;
 
-    extern std::atomic<bool> g_Running;
-    extern HINSTANCE g_DllInstance;
-    extern HANDLE g_MainThread;
-    extern DWORD g_MainThreadId;
+	extern std::atomic<bool> g_Running;
+	extern HINSTANCE g_DllInstance;
+	extern HANDLE g_MainThread;
+	extern DWORD g_MainThreadId;
 }
