@@ -12,6 +12,6 @@ namespace NewBase
 		if (umsg == WM_KEYUP && wparam == VK_DELETE) // fallback to unload
 			g_Running = false;
 
-		return BaseHook::Get<Window::WndProc, DetourHook<WNDPROC, WNDPROC>>()->Original<WNDPROC>()(hwnd, umsg, wparam, lparam);
+		return BaseHook::Get<Window::WndProc, DetourHook<WNDPROC>>()->Original()(hwnd, umsg, wparam, lparam);
 	}
-}
+} 

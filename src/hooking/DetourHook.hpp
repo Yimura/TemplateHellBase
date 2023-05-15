@@ -7,7 +7,7 @@
 
 namespace NewBase
 {
-	template<typename T = int, typename D = int>
+	template<typename T = int*>
 	class DetourHook : public BaseHook
 	{
 	private:
@@ -16,7 +16,7 @@ namespace NewBase
 		void* m_OriginalFunc;
 
 	public:
-		DetourHook(const std::string_view name, T* target, D* detour);
+		DetourHook(const std::string_view name, T target, T detour);
 		virtual ~DetourHook();
 
 		bool Enable();
@@ -25,15 +25,14 @@ namespace NewBase
 		bool EnableNow();
 		bool DisableNow();
 
-		template<typename Func>
-		Func Original() const;
+		T Original() const;
 
 	private:
 		void OptimizeHook();
 	};
 
-	template<typename T, typename D>
-	inline DetourHook<T, D>::DetourHook(const std::string_view name, T* target, D* detour) :
+	template<typename T>
+	inline DetourHook<T>::DetourHook(const std::string_view name, T target, T detour) :
 	    BaseHook(name),
 	    m_TargetFunc(target),
 	    m_DetourFunc(detour),
@@ -47,14 +46,14 @@ namespace NewBase
 		}
 	}
 
-	template<typename T, typename D>
-	inline DetourHook<T, D>::~DetourHook()
+	template<typename T>
+	inline DetourHook<T>::~DetourHook()
 	{
 		DisableNow();
 	}
 
-	template<typename T, typename D>
-	inline bool DetourHook<T, D>::Enable()
+	template<typename T>
+	inline bool DetourHook<T>::Enable()
 	{
 		if (m_Enabled)
 			return false;
@@ -68,8 +67,8 @@ namespace NewBase
 		return true;
 	}
 
-	template<typename T, typename D>
-	inline bool DetourHook<T, D>::Disable()
+	template<typename T>
+	inline bool DetourHook<T>::Disable()
 	{
 		if (!m_Enabled)
 			return false;
@@ -83,8 +82,8 @@ namespace NewBase
 		return true;
 	}
 
-	template<typename T, typename D>
-	inline bool DetourHook<T, D>::EnableNow()
+	template<typename T>
+	inline bool DetourHook<T>::EnableNow()
 	{
 		if (m_Enabled)
 			return false;
@@ -98,8 +97,8 @@ namespace NewBase
 		return true;
 	}
 
-	template<typename T, typename D>
-	inline bool DetourHook<T, D>::DisableNow()
+	template<typename T>
+	inline bool DetourHook<T>::DisableNow()
 	{
 		if (!m_Enabled)
 			return false;
@@ -113,15 +112,14 @@ namespace NewBase
 		return true;
 	}
 
-	template<typename T, typename D>
-	template<typename Func>
-	inline Func DetourHook<T, D>::Original() const
+	template<typename T>
+	inline T DetourHook<T>::Original() const
 	{
-		return reinterpret_cast<Func>(m_OriginalFunc);
+		return reinterpret_cast<T>(m_OriginalFunc);
 	}
 
-	template<typename T, typename D>
-	inline void DetourHook<T, D>::OptimizeHook()
+	template<typename T>
+	inline void DetourHook<T>::OptimizeHook()
 	{
 		auto ptr = PointerCalculator(m_TargetFunc);
 		while (ptr.As<std::uint8_t&>() == 0xE9)
