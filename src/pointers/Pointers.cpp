@@ -1,5 +1,6 @@
 #include "Pointers.hpp"
 
+#include "memory/BytePatch.hpp"
 #include "memory/ModuleMgr.hpp"
 #include "memory/PatternScanner.hpp"
 #include "util/Joaat.hpp"
@@ -21,6 +22,13 @@ namespace NewBase
 		constexpr auto wndProcPtrn = Pattern<"48 8B C4 48 89 58 08 4C 89 48 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 68 A1 48 81 EC F0">("WNDPROC");
 		scanner.Add(wndProcPtrn, [this](PointerCalculator ptr) {
 			WndProc = ptr.As<WNDPROC>();
+		});
+
+		constexpr auto debugTrap = Pattern<"48 83 EC 28 33 C9 FF 15 ? ? ? ? 45 33 C9">("DebugTrap");
+		scanner.Add(debugTrap, [this](PointerCalculator ptr) {
+			BytePatch::Make(ptr.As<void*>(), std::to_array({ 0xC3, 0x90, 0x90, 0x90 }))->Apply();
+
+			UnhookWindowsHookEx(*ptr.Add(45).Rip().As<HHOOK*>());
 		});
 
 		if (!scanner.Scan())
