@@ -16,7 +16,7 @@ namespace NewBase
 		void* m_OriginalFunc;
 
 	public:
-		DetourHook(const std::string_view name, T target, T detour);
+		DetourHook(const std::string_view name, void* target, T detour);
 		virtual ~DetourHook();
 
 		bool Enable();
@@ -32,7 +32,7 @@ namespace NewBase
 	};
 
 	template<typename T>
-	inline DetourHook<T>::DetourHook(const std::string_view name, T target, T detour) :
+	inline DetourHook<T>::DetourHook(const std::string_view name, void* target, T detour) :
 	    BaseHook(name),
 	    m_TargetFunc(target),
 	    m_DetourFunc(detour),
