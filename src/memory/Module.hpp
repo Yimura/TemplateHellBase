@@ -70,15 +70,19 @@ namespace NewBase
 
 		const auto imageDataDirectory = ntHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT];
 		const auto exportDirectory    = m_Base.Add(imageDataDirectory.VirtualAddress).As<IMAGE_EXPORT_DIRECTORY*>();
+		const auto namesOffsets       = m_Base.Add(exportDirectory->AddressOfNames).As<DWORD*>();
+		const auto funcOffsets        = m_Base.Add(exportDirectory->AddressOfFunctions).As<DWORD*>();
 
 		for (std::size_t i = 0; i < exportDirectory->NumberOfFunctions; i++)
 		{
-			const auto functionName = m_Base.Add(exportDirectory->AddressOfNames[i]).As<const char*>();
+			const auto functionName = m_Base.Add(namesOffsets[i]).As<const char*>();
 			if (strcmp(functionName, symbolName.data()))
 				continue;
 
-			return m_Base.Add(exportDirectory->AddressOfFunctions[exportDirectory->AddressOfNameOrdinals[i]]).As<T>();
+			return m_Base.Add(funcOffsets[i]).As<T>();
 		}
+
+		LOG(FATAL) << "Cannot find export: " << symbolName;
 		return nullptr;
 	}
 }
