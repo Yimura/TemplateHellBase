@@ -1,4 +1,5 @@
 #include "common.hpp"
+#include "filemgr/FileMgr.hpp"
 #include "frontend/GUI.hpp"
 #include "hooking/Hooking.hpp"
 #include "pointers/Pointers.hpp"
@@ -8,7 +9,10 @@ namespace NewBase
 {
 	DWORD Main(void*)
 	{
-		LogHelper::Init("henlo", "./cout.log");
+		const auto documents = std::filesystem::path(std::getenv("USERPROFILE")) / "Documents"; 
+		FileMgr::Init(documents / "HellBase");
+
+		LogHelper::Init("henlo", FileMgr::GetProjectFile("./cout.log").Path());
 
 		if (!Pointers.Init())
 			goto unload;
