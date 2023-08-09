@@ -9,10 +9,15 @@ namespace NewBase
 {
 	bool Pointers::Init()
 	{
-		auto mgr = ModuleMgr();
-		mgr.LoadModules();
+		const auto gta5 = ModuleMgr.Get("GTA5.exe"_J);
+		if (!gta5)
+		{
+			LOG(FATAL) << "Could not find " << gta5->Name() << ", is this GTA5?";
 
-		auto scanner = PatternScanner(mgr.Get("GTA5.exe"_J));
+			return false;
+		}
+
+		auto scanner = PatternScanner(gta5);
 
 		constexpr auto swapchainPtrn = Pattern<"48 8B 0D ? ? ? ? 48 8B 01 44 8D 43 01 33 D2 FF 50 40 8B C8">("IDXGISwapChain");
 		scanner.Add(swapchainPtrn, [this](PointerCalculator ptr) {
