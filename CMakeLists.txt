@@ -5,6 +5,7 @@ project(NewBase VERSION 0.0.1 DESCRIPTION "A new base using new C++ features opt
 # libs
 include(cmake/async-logger.cmake)
 include(cmake/imgui.cmake)
+include(cmake/json.cmake)
 include(cmake/minhook.cmake)
 
 # source
@@ -27,4 +28,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 message(STATUS "Setting up linked libraries")
-target_link_libraries(${PROJECT_NAME} PRIVATE AsyncLogger imgui minhook)
+target_link_libraries(${PROJECT_NAME} PRIVATE AsyncLogger imgui minhook nlohmann_json::nlohmann_json)

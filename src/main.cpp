@@ -5,7 +5,6 @@
 #include "game/frontend/GUI.hpp"
 #include "game/pointers/Pointers.hpp"
 
-
 namespace NewBase
 {
 	DWORD Main(void*)
