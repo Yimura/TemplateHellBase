@@ -2,7 +2,7 @@
 #include "core/filemgr/FileMgr.hpp"
 #include "core/hooking/Hooking.hpp"
 #include "core/renderer/Renderer.hpp"
-#include "frontend/GUI.hpp"
+#include "game/frontend/GUI.hpp"
 #include "game/pointers/Pointers.hpp"
 
 

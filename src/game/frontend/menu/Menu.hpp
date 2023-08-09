@@ -1,5 +1,5 @@
 #pragma once
-#include "frontend/GUI.hpp"
+#include "game/frontend/GUI.hpp"
 
 namespace NewBase::Menu
 {
