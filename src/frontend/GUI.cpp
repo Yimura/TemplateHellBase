@@ -1,7 +1,7 @@
 #include "GUI.hpp"
 
 #include "menu/Menu.hpp"
-#include "renderer/Renderer.hpp"
+#include "core/renderer/Renderer.hpp"
 
 namespace NewBase
 {

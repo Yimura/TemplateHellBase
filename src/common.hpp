@@ -20,7 +20,7 @@
 #include <vector>
 using namespace al;
 
-#include "logger/LogHelper.hpp"
+#include "core/logger/LogHelper.hpp"
 
 
 namespace NewBase

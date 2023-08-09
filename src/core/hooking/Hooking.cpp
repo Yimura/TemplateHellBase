@@ -3,8 +3,8 @@
 #include "BaseHook.hpp"
 #include "DetourHook.hpp"
 #include "VMTHook.hpp"
-#include "hooks/Hooks.hpp"
-#include "pointers/Pointers.hpp"
+#include "game/hooks/Hooks.hpp"
+#include "game/pointers/Pointers.hpp"
 
 namespace NewBase
 {

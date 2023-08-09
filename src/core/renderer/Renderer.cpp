@@ -1,6 +1,6 @@
 #include "Renderer.hpp"
 
-#include "pointers/Pointers.hpp"
+#include "game/pointers/Pointers.hpp"
 
 #include <backends/imgui_impl_dx11.h>
 #include <backends/imgui_impl_win32.h>

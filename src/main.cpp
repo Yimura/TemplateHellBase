@@ -1,22 +1,24 @@
 #include "common.hpp"
-#include "filemgr/FileMgr.hpp"
+#include "core/filemgr/FileMgr.hpp"
+#include "core/hooking/Hooking.hpp"
+#include "core/renderer/Renderer.hpp"
 #include "frontend/GUI.hpp"
-#include "hooking/Hooking.hpp"
-#include "pointers/Pointers.hpp"
-#include "renderer/Renderer.hpp"
+#include "game/pointers/Pointers.hpp"
+
 
 namespace NewBase
 {
 	DWORD Main(void*)
 	{
-		const auto documents = std::filesystem::path(std::getenv("USERPROFILE")) / "Documents"; 
+		const auto documents = std::filesystem::path(std::getenv("USERPROFILE")) / "Documents";
 		FileMgr::Init(documents / "HellBase");
 
 		LogHelper::Init("henlo", FileMgr::GetProjectFile("./cout.log").Path());
 
 		if (!Pointers.Init())
 			goto unload;
-		Renderer::Init();
+		if (Renderer::Init())
+			goto unload;
 		GUI::Init();
 		Hooking::Init();
 

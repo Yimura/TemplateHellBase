@@ -1,8 +1,8 @@
 #include "Pointers.hpp"
 
-#include "memory/BytePatch.hpp"
-#include "memory/ModuleMgr.hpp"
-#include "memory/PatternScanner.hpp"
+#include "core/memory/BytePatch.hpp"
+#include "core/memory/ModuleMgr.hpp"
+#include "core/memory/PatternScanner.hpp"
 #include "util/Joaat.hpp"
 
 namespace NewBase

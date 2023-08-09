@@ -1,6 +1,7 @@
-#include "hooking/DetourHook.hpp"
-#include "hooks/Hooks.hpp"
-#include "renderer/Renderer.hpp"
+#include "core/hooking/DetourHook.hpp"
+#include "core/renderer/Renderer.hpp"
+#include "game/hooks/Hooks.hpp"
+
 
 namespace NewBase
 {
@@ -14,4 +15,4 @@ namespace NewBase
 
 		return BaseHook::Get<Window::WndProc, DetourHook<WNDPROC>>()->Original()(hwnd, umsg, wparam, lparam);
 	}
-} 
+}

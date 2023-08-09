@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseHook.hpp"
-#include "memory/PointerCalculator.hpp"
+#include "core/memory/PointerCalculator.hpp"
 
 #include <MinHook.h>
 #include <string_view>

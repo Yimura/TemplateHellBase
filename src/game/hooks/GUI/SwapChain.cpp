@@ -1,6 +1,6 @@
-#include "hooking/VMTHook.hpp"
-#include "hooks/Hooks.hpp"
-#include "renderer/Renderer.hpp"
+#include "core/hooking/VMTHook.hpp"
+#include "core/renderer/Renderer.hpp"
+#include "game/hooks/Hooks.hpp"
 
 namespace NewBase
 {
