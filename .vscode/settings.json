@@ -76,6 +76,5 @@
         "unordered_map": "cpp",
         "xhash": "cpp",
         "filesystem": "cpp"
-    },
-    "C_Cpp.default.configurationProvider": "maxmitti.cmake-tools-fork"
+    }
 }
