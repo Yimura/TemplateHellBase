@@ -12,7 +12,7 @@ include(cmake/minhook.cmake)
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 file(GLOB_RECURSE SRC_FILES
     "${SRC_DIR}/**.hpp"
-    "${SRC_DIR}/**.cpp"    
+    "${SRC_DIR}/**.cpp"
 )
 
 add_library(${PROJECT_NAME} MODULE ${SRC_FILES})
