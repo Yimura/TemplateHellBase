@@ -72,11 +72,11 @@ namespace NewBase
 	public:
 		constexpr Pattern(const std::string_view name);
 
-		inline virtual const std::string_view Name() const override
+		inline const std::string_view Name() const override
 		{
 			return m_Name;
 		}
-		inline virtual constexpr std::span<const std::optional<std::uint8_t>> Signature() const override
+		inline constexpr std::span<const std::optional<std::uint8_t>> Signature() const override
 		{
 			return m_Signature;
 		}
