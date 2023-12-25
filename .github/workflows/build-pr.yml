@@ -1,0 +1,44 @@
+name: Build PR
+
+on: [ pull_request ]
+
+# cancels any workflows that are queue'd before this and exactly match this workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: [self-hosted, Windows]
+    name: CI
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check CMake version
+        run: cmake --version
+
+      - name: Setup MSVC environment
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+
+      - name: Generate CMake project
+        run: cmake -D CMAKE_BUILD_TYPE=Release -S. -Bbuild -G Ninja
+
+      - name: Build 64bit release DLL
+        run: cmake --build ./build --config Release --target mod --
+
+      - name: Check if DLL got built
+        run: if (-Not (Test-Path -path "build/mod.dll")) {throw 1}
+
+      - name: Rename DLL to mod-dev-{GITHUB_SHA}.dll
+        run: |
+          del mod-dev-*.dll
+          ren mod.dll mod-dev-${{github.sha}}.dll
+        working-directory: build/
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: binary
+          path: build/mod-dev-*.dll
